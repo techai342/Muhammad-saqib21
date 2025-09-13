@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech.AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #00f3ff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Background */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      overflow: hidden;
+    }
+
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(0, 243, 255, 0.5);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100vw) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Dashboard */
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    header {
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 0 12px #00f3ff, 0 0 24px #00c3ff;
+    }
+    .app-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 300px;
+      max-width: 90%;
+    }
+    .app-btn {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00f3ff;
+      padding: 12px;
+      border-radius: 10px;
+      color: #00f3ff;
+      font-size: 15px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 10px #00f3ff, 0 0 20px #00c3ff;
+    }
+    .app-btn i {
+      font-size: 20px;
+      color: #00f3ff;
+    }
+    .app-btn:hover {
+      background: #00f3ff;
+      color: #000;
+      box-shadow: 0 0 20px #00f3ff, 0 0 40px #00c3ff;
+    }
+    .app-btn:hover i {
+      color: #000;
+    }
+
+    /* WhatsApp Special Button */
+    .whatsapp-btn {
+      background: #25D366 !important;
+      border: 2px solid #128C7E !important;
+      color: #fff !important;
+      box-shadow: 0 0 15px #25D366, 0 0 30px #128C7E;
+      text-align: center;
+      justify-content: center;
+    }
+    .whatsapp-btn i {
+      color: #fff !important;
+    }
+    .whatsapp-btn:hover {
+      background: #128C7E !important;
+      box-shadow: 0 0 20px #25D366, 0 0 40px #128C7E;
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #88e6f7;
+    }
+
+    /* App Detail Section */
+    .app-detail {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(0,0,0,0.85);
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 800px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    .app-detail img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 15px #00f3ff;
+    }
+    .app-detail h2 {
+      color: #00f3ff;
+      margin-bottom: 10px;
+      text-shadow: 0 0 8px #00f3ff;
+    }
+    .app-detail p {
+      color: #fff;
+      font-size: 15px;
+      line-height: 1.6;
+      text-align: justify;
+      margin-bottom: 15px;
+    }
+    .download-btn {
+      background: #00f3ff;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 0 15px #00f3ff, 0 0 30px #00c3ff;
+      transition: 0.3s;
+    }
+    .download-btn:hover {
+      background: #00c3ff;
+      box-shadow: 0 0 25px #00f3ff, 0 0 45px #00c3ff;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Animated Background -->
+  <div class="background">
+    <div class="particles" id="particles"></div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard">
+    <header>⚡ Tech.AI  ⚡</header>
+
+    <!-- CapCut Pro -->
+    <div class="app-detail" id="capcut-detail">
+      <img src="https://files.catbox.moe/rd33ql.webp" alt="Capcut Pro">
+      <h2>CapCut Pro</h2>
+      <p>
+        CapCut Pro ek powerful video editing app hai jo premium features ke sath aata hai.  
+        Isme aapko milte hain:
+        <br>✔ No Watermark  
+        ✔ Unlimited Effects & Filters  
+        ✔ Premium Transitions  
+        ✔ HD Export up to 4K  
+        ✔ Easy-to-use interface  
+      </p>
+      <a href="https://techcapcat.vercel.app/" 
+         target="_blank" class="download-btn">
+         ⬇ Download CapCut Pro
+      </a>
+    </div>
+
+    <!-- Netflix -->
+    <div class="app-detail" id="netflix-detail">
+      <img src="https://files.catbox.moe/eodag4.webp" alt="Netflix">
+      <h2>Netflix Screen</h2>
+      <p>
+        Netflix ek popular streaming service hai jahan aap movies, TV shows, aur web series dekh sakte ho.  
+        Premium version ke sath aapko milta hai:  
+        ✔ Unlimited content access  
+        ✔ Ad-free streaming  
+        ✔ HD/4K Quality  
+        ✔ Multiple devices support  
+      </p>
+      <a href="https://technetflix.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Contact for Netflix Access
+      </a>
+    </div>
+
+    <!-- InShot Pro -->
+    <div class="app-detail" id="inshot-detail">
+      <img src="https://files.catbox.moe/yjn033.webp" alt="InShot Pro">
+      <h2>InShot Pro</h2>
+      <p>
+        InShot Pro ek video aur photo editing app hai jo creators ke liye perfect hai.  
+        Iske features:  
+        ✔ No Watermark  
+        ✔ Premium Filters & Effects  
+        ✔ Video Trimming & Merging  
+        ✔ Export in Full HD  
+      </p>
+      <a href="https://inshot-six.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download InShot Pro
+      </a>
+    </div>
+
+    <!-- Remini Pro -->
+    <div class="app-detail" id="remini-detail">
+      <img src="https://files.catbox.moe/j4dg0y.webp" alt="Remini Pro">
+      <h2>Remini Pro</h2>
+      <p>
+        Remini Pro ek AI photo enhancer hai jo purani ya blur photos ko HD quality me convert karta hai.  
+        Features:  
+        ✔ AI-based photo enhancement  
+        ✔ Old photos restore  
+        ✔ Sharpen & improve details  
+        ✔ Unlimited Pro access  
+      </p>
+      <a href="https://remini-lemon.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download Remini Pro
+      </a>
+    </div>
+
+    <!-- Best Video Downloader -->
+    <div class="app-detail" id="downloader-detail">
+      <img src="https://files.catbox.moe/ff4rn3.webp" alt="Best Video Downloader">
+      <h2>Best Video Downloader</h2>
+      <p>
+        Ye ek simple aur fast video downloader app hai.  
+        Iske sath aap YouTube, Facebook, Instagram aur dusre platforms se videos download kar sakte ho.  
+        ✔ Multiple platform support  
+        ✔ Fast downloading  
+        ✔ Built-in player  
+      </p>
+      <a href="https://best-vedio-dowmloader.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download Video Downloader
+      </a>
+    </div>
+
+    <!-- PicsArt Pro -->
+    <div class="app-detail" id="picsart-detail">
+      <img src="https://files.catbox.moe/8g0spq.webp" alt="PicsArt Pro">
+      <h2>PicsArt Pro</h2>
+      <p>
+        PicsArt Pro ek popular photo editing app hai jisme aapko creative tools milte hain.  
+        Features:  
+        ✔ Premium Stickers & Fonts  
+        ✔ Advanced Filters  
+        ✔ Background Remover  
+        ✔ Ad-free Experience  
+      </p>
+      <a href="https://picsart-ashy.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download PicsArt Pro
+      </a>
+    </div>
+
+    <!-- Telegram Pro -->
+    <div class="app-detail" id="telegram-detail">
+      <img src="https://files.catbox.moe/f46uj5.webp" alt="Telegram Pro">
+      <h2>Telegram Pro</h2>
+      <p>
+        Telegram Pro ek advanced messaging app hai jo premium features provide karta hai.  
+        Features:  
+        ✔ Unlimited cloud storage  
+        ✔ Faster downloads  
+        ✔ Exclusive stickers  
+        ✔ Ad-free experience  
+        ✔ Enhanced privacy controls  
+      </p>
+      <a href="https://telegram-delta-indol.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download Telegram Pro
+      </a>
+    </div>
+
+    <!-- WhatsApp Gold -->
+    <div class="app-detail" id="whatsappgold-detail">
+      <img src="https://files.catbox.moe/owl5rw.webp" alt="WhatsApp Gold">
+      <h2>WhatsApp Gold</h2>
+      <p>
+        WhatsApp Gold ek exclusive version hai jisme aapko milte hain advanced features.  
+        Features:  
+        ✔ Custom themes  
+        ✔ Enhanced privacy options  
+        ✔ Increased media sharing limit  
+        ✔ Message scheduling  
+        ✔ Hide online status  
+      </p>
+      <a href="https://whatsappgold.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download WhatsApp Gold
+      </a>
+    </div>
+
+    <!-- PhotoRoom Pro -->
+    <div class="app-detail" id="photoroom-detail">
+      <img src="https://files.catbox.moe/f47yx1.webp" alt="PhotoRoom Pro">
+      <h2>PhotoRoom Pro</h2>
+      <p>
+        PhotoRoom Pro ek AI-powered photo editing app hai jo professional background removal aur enhancement provide karta hai.  
+        Features:  
+        ✔ Instant background removal  
+        ✔ HD quality output  
+        ✔ Multiple background options  
+        ✔ Professional editing tools  
+        ✔ No watermark  
+      </p>
+      <a href="https://photoroom-rust.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download PhotoRoom Pro
+      </a>
+    </div>
+
+    <!-- Spotify Pro -->
+    <div class="app-detail" id="spotify-detail">
+      <img src="https://files.catbox.moe/u8z4b5.webp" alt="Spotify Pro">
+      <h2>Spotify Pro</h2>
+      <p>
+        Spotify Pro ek music streaming app hai jisme aapko milta hai unlimited access to millions of songs.  
+        Features:  
+        ✔ Ad-free music streaming  
+        ✔ Unlimited skips  
+        ✔ High quality audio  
+        ✔ Offline downloads  
+        ✔ No restrictions  
+      </p>
+      <a href="https://spotify-rouge-pi.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download Spotify Pro
+      </a>
+    </div>
+
+    <!-- YouTube Music Pro -->
+    <div class="app-detail" id="ytmusic-detail">
+      <img src="https://files.catbox.moe/oe4spd.webp" alt="YouTube Music Pro">
+      <h2>YouTube Music Pro</h2>
+      <p>
+        YouTube Music Pro ek powerful music app hai jo aapko YouTube ki library se gaane sunne ki facility deta hai.  
+        Features:  
+        ✔ Background play  
+        ✔ Ad-free experience  
+        ✔ Download songs for offline  
+        ✔ High quality audio  
+        ✔ Unlimited access  
+      </p>
+      <a href="https://youtube-music-sable.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download YouTube Music Pro
+      </a>
+    </div>
+
+    <!-- Photo Lab Pro -->
+    <div class="app-detail" id="photolab-detail">
+      <img src="https://files.catbox.moe/0l79ec.webp" alt="Photo Lab Pro">
+      <h2>Photo Lab Pro</h2>
+      <p>
+        Photo Lab Pro ek photo editing app hai jisme aapko milte hain hundreds of filters aur effects.  
+        Features:  
+        ✔ Premium filters & effects  
+        ✔ AI photo enhancement  
+        ✔ No ads  
+        ✔ High resolution export  
+        ✔ Regular updates  
+      </p>
+      <a href="https://photolab-snowy.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download Photo Lab Pro
+      </a>
+    </div>
+
+    <!-- Movie Box Pro -->
+    <div class="app-detail" id="moviebox-detail">
+      <img src="https://files.catbox.moe/c7iq26.webp" alt="Movie Box Pro">
+      <h2>Movie Box Pro</h2>
+      <p>
+        Movie Box Pro ek streaming app hai jahan aap latest movies aur TV shows dekh sakte hain.  
+        Features:  
+        ✔ HD/4K quality streaming  
+        ✔ Large content library  
+        ✔ Download for offline viewing  
+        ✔ No subscription required  
+        ✔ Regular content updates  
+      </p>
+      <a href="https://movebox-rho.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download Movie Box Pro
+      </a>
+    </div>
+
+    <!-- Alight Motion Pro -->
+    <div class="app-detail" id="alightmotion-detail">
+      <img src="https://files.catbox.moe/tei2gh.webp" alt="Alight Motion Pro">
+      <h2>Alight Motion Pro</h2>
+      <p>
+        Alight Motion Pro ek professional video editing app hai jo advanced features provide karta hai.  
+        Features:  
+        ✔ Premium video effects  
+        ✔ Keyframe animation  
+        ✔ 4K export quality  
+        ✔ No watermark  
+        ✔ All features unlocked  
+      </p>
+      <a href="https://alightmotion-drab.vercel.app/" target="_blank" class="download-btn">
+        ⬇ Download Alight Motion Pro
+      </a>
+    </div>
+
+    <!-- App List -->
+    <div class="app-list">
+      <button class="app-btn" onclick="showAppDetail('capcut-detail')">
+        <i class="fas fa-film"></i> CapCut Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('netflix-detail')">
+        <i class="fas fa-tv"></i> Netflix Screen
+      </button>
+      <button class="app-btn" onclick="showAppDetail('inshot-detail')">
+        <i class="fas fa-video"></i> InShot Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('remini-detail')">
+        <i class="fas fa-image"></i> Remini Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('downloader-detail')">
+        <i class="fas fa-download"></i> Best Video Downloader
+      </button>
+      <button class="app-btn" onclick="showAppDetail('picsart-detail')">
+        <i class="fas fa-paint-brush"></i> PicsArt Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('telegram-detail')">
+        <i class="fab fa-telegram"></i> Telegram Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('whatsappgold-detail')">
+        <i class="fab fa-whatsapp"></i> WhatsApp Gold
+      </button>
+      <button class="app-btn" onclick="showAppDetail('photoroom-detail')">
+        <i class="fas fa-camera"></i> PhotoRoom Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('spotify-detail')">
+        <i class="fab fa-spotify"></i> Spotify Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('ytmusic-detail')">
+        <i class="fab fa-youtube"></i> YouTube Music Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('photolab-detail')">
+        <i class="fas fa-images"></i> Photo Lab Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('moviebox-detail')">
+        <i class="fas fa-film"></i> Movie Box Pro
+      </button>
+      <button class="app-btn" onclick="showAppDetail('alightmotion-detail')">
+        <i class="fas fa-play-circle"></i> Alight Motion Pro
+      </button>
+      
+      <!-- WhatsApp Contact Button -->
+      <a href="https://api.whatsapp.com/send?phone=+923478936242&text=Hi%20I%20need%20help%20with%20apps" 
+         target="_blank" class="app-btn whatsapp-btn">
+        <i class="fab fa-whatsapp"></i> WhatsApp Contact
+      </a>
+    </div>
+
+    <footer>
+      <p>© 2025 Tech.AI - All Rights Reserved</p>
+    </footer>
+  </div>
+
+  <script>
+    // Particle animation for background
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size, position, and animation delay
+        const size = Math.random() * 20 + 5;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const delay = Math.random() * 15;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}vw`;
+        particle.style.top = `${posY}vh`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Show app detail function
+    function showAppDetail(appId) {
+      // Hide all app details first
+      const allDetails = document.querySelectorAll('.app-detail');
+      allDetails.forEach(detail => {
+        detail.style.display = 'none';
+      });
+      
+      // Show the selected app detail
+      const selectedDetail = document.getElementById(appId);
+      if (selectedDetail) {
+        selectedDetail.style.display = 'flex';
+        selectedDetail.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    
+    // Initialize the page
+    window.onload = function() {
+      createParticles();
+    };
+  </script>
+</body>
+</html>
