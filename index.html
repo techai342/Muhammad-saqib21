@@ -3,18 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech.AI</title>
+  <title>Tech.AI - Secure Downloads</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --bg: #0a0314;
+      --neon1: #00ffe0;
+      --neon2: #ff008c;
+      --neon3: #6a5dff;
+    }
+    
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+    }
+    
+    body {
+      font-family: Poppins, Arial, sans-serif;
+      background: var(--bg);
+      color: #f2faff;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #00f3ff;
       overflow-x: hidden;
       position: relative;
     }
@@ -64,6 +74,7 @@
       min-height: 100vh;
       padding: 20px;
     }
+    
     header {
       font-size: 28px;
       font-weight: bold;
@@ -71,6 +82,7 @@
       margin-bottom: 20px;
       text-shadow: 0 0 12px #00f3ff, 0 0 24px #00c3ff;
     }
+    
     .app-list {
       display: flex;
       flex-direction: column;
@@ -78,6 +90,7 @@
       width: 300px;
       max-width: 90%;
     }
+    
     .app-btn {
       background: rgba(0, 0, 0, 0.7);
       border: 2px solid #00f3ff;
@@ -93,15 +106,18 @@
       gap: 10px;
       box-shadow: 0 0 10px #00f3ff, 0 0 20px #00c3ff;
     }
+    
     .app-btn i {
       font-size: 20px;
       color: #00f3ff;
     }
+    
     .app-btn:hover {
       background: #00f3ff;
       color: #000;
       box-shadow: 0 0 20px #00f3ff, 0 0 40px #00c3ff;
     }
+    
     .app-btn:hover i {
       color: #000;
     }
@@ -115,9 +131,11 @@
       text-align: center;
       justify-content: center;
     }
+    
     .whatsapp-btn i {
       color: #fff !important;
     }
+    
     .whatsapp-btn:hover {
       background: #128C7E !important;
       box-shadow: 0 0 20px #25D366, 0 0 40px #128C7E;
@@ -144,17 +162,20 @@
       margin-bottom: 20px;
       animation: fadeIn 0.6s ease-in-out;
     }
+    
     .app-detail img {
       max-width: 100%;
       border-radius: 10px;
       margin-bottom: 15px;
       box-shadow: 0 0 15px #00f3ff;
     }
+    
     .app-detail h2 {
       color: #00f3ff;
       margin-bottom: 10px;
       text-shadow: 0 0 8px #00f3ff;
     }
+    
     .app-detail p {
       color: #fff;
       font-size: 15px;
@@ -162,6 +183,7 @@
       text-align: justify;
       margin-bottom: 15px;
     }
+    
     .download-btn {
       background: #00f3ff;
       color: #000;
@@ -171,15 +193,200 @@
       text-decoration: none;
       box-shadow: 0 0 15px #00f3ff, 0 0 30px #00c3ff;
       transition: 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 15px;
     }
+    
     .download-btn:hover {
       background: #00c3ff;
       box-shadow: 0 0 25px #00f3ff, 0 0 45px #00c3ff;
     }
 
+    /* Login Modal */
+    .login-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    
+    .login-box {
+      position: relative;
+      z-index: 5;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 36px 28px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+    
+    .login-box h1 {
+      font-family: Orbitron, sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, var(--neon1), var(--neon2), var(--neon3));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    
+    .login-box p {
+      font-size: 13px;
+      color: rgba(220, 240, 255, 0.85);
+      margin-bottom: 18px;
+    }
+    
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: rgba(220, 240, 255, 0.85);
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: border .2s, box-shadow .2s;
+    }
+    
+    .login-box input:focus {
+      border-color: var(--neon1);
+      box-shadow: 0 0 12px rgba(0, 255, 224, 0.3);
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-family: Orbitron, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--neon1), var(--neon2));
+      color: #021217;
+      transition: transform .2s, box-shadow .2s;
+      position: relative;
+    }
+    
+    .login-box button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 0 22px rgba(0, 255, 224, 0.3);
+    }
+    
+    .login-box button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .button-loading .button-text {
+      visibility: hidden;
+      opacity: 0;
+    }
+    
+    .button-loading::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      border: 3px solid transparent;
+      border-top-color: #021217;
+      border-radius: 50%;
+      animation: button-loading-spinner 1s ease infinite;
+    }
+    
+    @keyframes button-loading-spinner {
+      from {
+        transform: rotate(0turn);
+      }
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    .error {
+      color: #ff5f8c;
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
+    }
+
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      20%, 60% {
+        transform: translateX(-10px);
+      }
+      40%, 80% {
+        transform: translateX(10px);
+      }
+    }
+    
+    /* Mobile-specific adjustments */
+    @media (max-width: 480px) {
+      .login-box {
+        padding: 28px 20px;
+        max-width: 92%;
+      }
+      
+      .login-box h1 {
+        font-size: 20px;
+      }
+      
+      .login-box p {
+        font-size: 12px;
+      }
+      
+      .login-box input {
+        padding: 10px 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+      
+      .login-box button {
+        padding: 14px; /* Larger touch target */
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -190,9 +397,27 @@
     <div class="particles" id="particles"></div>
   </div>
 
+  <!-- Login Modal -->
+  <div class="login-modal" id="loginModal">
+    <div class="login-box" id="loginBox">
+      <h1 id="modalTitle">TECH. AI Login</h1>
+      <p id="modalMessage">Please enter password to unlock website</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" id="loginBtn">
+          <span class="button-text">Unlock</span>
+        </button>
+      </form>
+      <div class="error" id="errorMsg">Incorrect password!</div>
+    </div>
+  </div>
+
   <!-- Dashboard -->
   <div class="dashboard" id="dashboard">
-    <header>⚡ Tech.AI  ⚡</header>
+    <header>⚡ Tech.AI ⚡</header>
 
     <!-- CapCut Pro -->
     <div class="app-detail" id="capcut-detail">
@@ -207,10 +432,9 @@
         ✔ HD Export up to 4K  
         ✔ Easy-to-use interface  
       </p>
-      <a href="https://techcapcat.vercel.app/" 
-         target="_blank" class="download-btn">
-         ⬇ Download CapCut Pro
-      </a>
+      <button class="download-btn" onclick="showLoginModal('CapCut Pro', '384920', 'https://www.mediafire.com/file/qncu09htich5lmr/CapCut_15.1.0.apk/file')">
+        ⬇ Download CapCut Pro
+      </button>
     </div>
 
     <!-- Netflix -->
@@ -225,9 +449,9 @@
         ✔ HD/4K Quality  
         ✔ Multiple devices support  
       </p>
-      <a href="https://technetflix.vercel.app/" target="_blank" class="download-btn">
-        ⬇ Contact for Netflix Access
-      </a>
+      <button class="download-btn" onclick="showLoginModal('Netflix Screen', '719406', 'https://www.mediafire.com/file/uc22d22k8gjdb51/NetMirrorTV_Premium_v1.0_adescargar.online.apk/file')">
+        ⬇ Download Netflix Screen
+      </button>
     </div>
 
     <!-- InShot Pro -->
@@ -242,9 +466,9 @@
         ✔ Video Trimming & Merging  
         ✔ Export in Full HD  
       </p>
-      <a href="https://inshot-six.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('InShot Pro', '562143', 'https://inshotmod.com/download-now/')">
         ⬇ Download InShot Pro
-      </a>
+      </button>
     </div>
 
     <!-- Remini Pro -->
@@ -259,9 +483,9 @@
         ✔ Sharpen & improve details  
         ✔ Unlimited Pro access  
       </p>
-      <a href="https://remini-lemon.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('Remini Pro', '847192', 'https://www.mediafire.com/file/x53h5msslbg2s9p/Remini-PRO.apk/file')">
         ⬇ Download Remini Pro
-      </a>
+      </button>
     </div>
 
     <!-- Best Video Downloader -->
@@ -275,9 +499,9 @@
         ✔ Fast downloading  
         ✔ Built-in player  
       </p>
-      <a href="https://best-vedio-dowmloader.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('Best Video Downloader', '630581', 'https://www.snaptube.com/')">
         ⬇ Download Video Downloader
-      </a>
+      </button>
     </div>
 
     <!-- PicsArt Pro -->
@@ -292,9 +516,9 @@
         ✔ Background Remover  
         ✔ Ad-free Experience  
       </p>
-      <a href="https://picsart-ashy.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('PicsArt Pro', '951274', 'https://www.mediafire.com/file/znzgj4sc7pqy3oh/Picsart_Premium_Gold_v29.2.5.apk/file?dkey=gd0k9q6iuqw&r=1501')">
         ⬇ Download PicsArt Pro
-      </a>
+      </button>
     </div>
 
     <!-- Telegram Pro -->
@@ -310,9 +534,9 @@
         ✔ Ad-free experience  
         ✔ Enhanced privacy controls  
       </p>
-      <a href="https://telegram-delta-indol.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('Telegram Pro', '428639', 'https://www.mediafire.com/file/hryv1yoij5f1bsg/Telegram_Premium_v11.13.3_adscargar.online.apk/file')">
         ⬇ Download Telegram Pro
-      </a>
+      </button>
     </div>
 
     <!-- WhatsApp Gold -->
@@ -328,9 +552,9 @@
         ✔ Message scheduling  
         ✔ Hide online status  
       </p>
-      <a href="https://whatsappgold.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('WhatsApp Gold', '705318', 'https://z.gold/whatsapp-gold')">
         ⬇ Download WhatsApp Gold
-      </a>
+      </button>
     </div>
 
     <!-- PhotoRoom Pro -->
@@ -346,9 +570,9 @@
         ✔ Professional editing tools  
         ✔ No watermark  
       </p>
-      <a href="https://photoroom-rust.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('PhotoRoom Pro', '196482', 'https://www.mediafire.com/file/3r1s3cg73924twn/Photoroom_Pro_v2025.30.02_adscargar.online.apk/file')">
         ⬇ Download PhotoRoom Pro
-      </a>
+      </button>
     </div>
 
     <!-- Spotify Pro -->
@@ -364,9 +588,9 @@
         ✔ Offline downloads  
         ✔ No restrictions  
       </p>
-      <a href="https://spotify-rouge-pi.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('Spotify Pro', '853067', 'https://www.mediafire.com/file/bgq4dncagp9rayr/Spotify_9.0.16.572.apk/file')">
         ⬇ Download Spotify Pro
-      </a>
+      </button>
     </div>
 
     <!-- YouTube Music Pro -->
@@ -382,9 +606,9 @@
         ✔ High quality audio  
         ✔ Unlimited access  
       </p>
-      <a href="https://youtube-music-sable.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('YouTube Music Pro', '247915', 'https://www.mediafire.com/file/t4am6t4i5cl9liy/YouTube_Music_Premium_v8.34.51_adescargar.online.apk/file')">
         ⬇ Download YouTube Music Pro
-      </a>
+      </button>
     </div>
 
     <!-- Photo Lab Pro -->
@@ -400,9 +624,9 @@
         ✔ High resolution export  
         ✔ Regular updates  
       </p>
-      <a href="https://photolab-snowy.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('Photo Lab Pro', '690472', 'https://www.mediafire.com/file/dy4fe1a43yvgrhf/Photo+Lab_3.13.61.apk/file')">
         ⬇ Download Photo Lab Pro
-      </a>
+      </button>
     </div>
 
     <!-- Movie Box Pro -->
@@ -418,9 +642,9 @@
         ✔ No subscription required  
         ✔ Regular content updates  
       </p>
-      <a href="https://movebox-rho.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('Movie Box Pro', '382561', 'https://www.mediafire.com/file/dttrkd4rxci5paa/Moviebox_v-3.0.07.0822.03_adescargar.online.apk/file')">
         ⬇ Download Movie Box Pro
-      </a>
+      </button>
     </div>
 
     <!-- Alight Motion Pro -->
@@ -436,9 +660,9 @@
         ✔ No watermark  
         ✔ All features unlocked  
       </p>
-      <a href="https://alightmotion-drab.vercel.app/" target="_blank" class="download-btn">
+      <button class="download-btn" onclick="showLoginModal('Alight Motion Pro', '517903', 'https://www.mediafire.com/file/zoetuyhaofeocgr/Alight+Motion+v5.0.273+%28Premium%29+e.apk/file')">
         ⬇ Download Alight Motion Pro
-      </a>
+      </button>
     </div>
 
     <!-- App List -->
@@ -524,6 +748,68 @@
       }
     }
     
+    // App passwords and links
+    const appData = {
+      'CapCut Pro': {
+        password: '384920',
+        link: 'https://www.mediafire.com/file/qncu09htich5lmr/CapCut_15.1.0.apk/file'
+      },
+      'Netflix Screen': {
+        password: '719406',
+        link: 'https://www.mediafire.com/file/uc22d22k8gjdb51/NetMirrorTV_Premium_v1.0_adescargar.online.apk/file'
+      },
+      'InShot Pro': {
+        password: '562143',
+        link: 'https://inshotmod.com/download-now/'
+      },
+      'Remini Pro': {
+        password: '847192',
+        link: 'https://www.mediafire.com/file/x53h5msslbg2s9p/Remini-PRO.apk/file'
+      },
+      'Best Video Downloader': {
+        password: '630581',
+        link: 'https://www.snaptube.com/'
+      },
+      'PicsArt Pro': {
+        password: '951274',
+        link: 'https://www.mediafire.com/file/znzgj4sc7pqy3oh/Picsart_Premium_Gold_v29.2.5.apk/file?dkey=gd0k9q6iuqw&r=1501'
+      },
+      'Telegram Pro': {
+        password: '428639',
+        link: 'https://www.mediafire.com/file/hryv1yoij5f1bsg/Telegram_Premium_v11.13.3_adscargar.online.apk/file'
+      },
+      'WhatsApp Gold': {
+        password: '705318',
+        link: 'https://z.gold/whatsapp-gold'
+      },
+      'PhotoRoom Pro': {
+        password: '196482',
+        link: 'https://www.mediafire.com/file/3r1s3cg73924twn/Photoroom_Pro_v2025.30.02_adscargar.online.apk/file'
+      },
+      'Spotify Pro': {
+        password: '853067',
+        link: 'https://www.mediafire.com/file/bgq4dncagp9rayr/Spotify_9.0.16.572.apk/file'
+      },
+      'YouTube Music Pro': {
+        password: '247915',
+        link: 'https://www.mediafire.com/file/t4am6t4i5cl9liy/YouTube_Music_Premium_v8.34.51_adescargar.online.apk/file'
+      },
+      'Photo Lab Pro': {
+        password: '690472',
+        link: 'https://www.mediafire.com/file/dy4fe1a43yvgrhf/Photo+Lab_3.13.61.apk/file'
+      },
+      'Movie Box Pro': {
+        password: '382561',
+        link: 'https://www.mediafire.com/file/dttrkd4rxci5paa/Moviebox_v-3.0.07.0822.03_adescargar.online.apk/file'
+      },
+      'Alight Motion Pro': {
+        password: '517903',
+        link: 'https://www.mediafire.com/file/zoetuyhaofeocgr/Alight+Motion+v5.0.273+%28Premium%29+e.apk/file'
+      }
+    };
+    
+    let currentApp = null;
+    
     // Show app detail function
     function showAppDetail(appId) {
       // Hide all app details first
@@ -539,6 +825,68 @@
         selectedDetail.scrollIntoView({ behavior: 'smooth' });
       }
     }
+    
+    // Show login modal for specific app
+    function showLoginModal(appName, password, link) {
+      currentApp = appName;
+      document.getElementById('modalTitle').textContent = `TECH. AI - ${appName}`;
+      document.getElementById('modalMessage').textContent = `Please enter password to download ${appName}`;
+      document.getElementById('password').value = '';
+      document.getElementById('errorMsg').style.display = 'none';
+      document.getElementById('loginModal').style.display = 'flex';
+    }
+    
+    // Close login modal
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
+      currentApp = null;
+    }
+    
+    // Check password and redirect if correct
+    async function checkLogin(event) {
+      event.preventDefault();
+      
+      const password = document.getElementById('password').value.trim();
+      const loginBtn = document.getElementById('loginBtn');
+      const errorMsg = document.getElementById('errorMsg');
+      const loginBox = document.getElementById('loginBox');
+      
+      // Show loading state
+      loginBtn.disabled = true;
+      loginBtn.classList.add('button-loading');
+      errorMsg.style.display = 'none';
+      
+      // Simulate network request
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Check password
+      if (currentApp && password === appData[currentApp].password) {
+        // Correct password - redirect to download link
+        window.open(appData[currentApp].link, '_blank');
+        closeLoginModal();
+      } else {
+        // Incorrect password - show error
+        errorMsg.style.display = 'block';
+        loginBox.style.animation = 'shake 0.4s';
+        setTimeout(() => { 
+          loginBox.style.animation = ''; 
+        }, 400);
+      }
+      
+      // Remove loading state
+      loginBtn.disabled = false;
+      loginBtn.classList.remove('button-loading');
+    }
+    
+    // Event listeners
+    document.getElementById('loginForm').addEventListener('submit', checkLogin);
+    
+    // Close modal when clicking outside
+    document.getElementById('loginModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLoginModal();
+      }
+    });
     
     // Initialize the page
     window.onload = function() {
